@@ -1,0 +1,23 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title= titulo || "Sistema de Gestion Logistica"
+    link(rel="stylesheet", href="/css/estilos.css")
+  body
+    header
+      h1 Sistema de Gestion Logistica
+      nav
+        ul
+          li: a(href="/") Inicio
+          li: a(href="/personas/vista") Personas (Ejemplo)
+          li: a(href="/choferes") Choferes
+          li: a(href="/entregas") Entregas
+          li: a(href="/incidencias") Incidencias
+          li: a(href="/rutas") Rutas
+          li: a(href="/vehiculos") Vehiculos
+    main
+      block contenido
+    footer
+      p IFTS 29 - Tecnicatura Superior en Desarrollo de Software - 2026
