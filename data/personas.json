@@ -3,10 +3,5 @@
     "id": 1,
     "nombre": "Ana",
     "apellido": "Gomez"
-  },
-  {
-    "id": 2,
-    "nombre": "Carlos",
-    "apellido": "Lopez"
   }
 ]

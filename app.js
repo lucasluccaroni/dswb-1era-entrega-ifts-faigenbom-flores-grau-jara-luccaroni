@@ -18,8 +18,8 @@ const exampleRoutes = require("./routes/exampleRoutes");
 app.use("/personas", exampleRoutes);
 
 // rutas modulares del equipo
-// const choferesRoutes = require("./routes/choferesRoutes");
-// app.use("/choferes", choferesRoutes);
+const choferesRoutes = require("./routes/choferesRoutes");
+app.use("/choferes", choferesRoutes);
 
 // const entregasRoutes = require("./routes/entregasRoutes");
 // app.use("/entregas", entregasRoutes);
