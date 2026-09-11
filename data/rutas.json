@@ -1,1 +1,29 @@
-[]
+[
+  {
+    "id": 1,
+    "choferId": 2,
+    "vehiculoId": 1,
+    "fecha": "2026-09-08",
+    "horaInicio": "08:30",
+    "horaFinEstimada": "15:00",
+    "estado": "en_progreso"
+  },
+  {
+    "id": 2,
+    "choferId": 2,
+    "vehiculoId": 2,
+    "fecha": "2026-09-07",
+    "horaInicio": "09:00",
+    "horaFinEstimada": "15:00",
+    "estado": "en_progreso"
+  },
+  {
+    "id": 3,
+    "choferId": 6,
+    "vehiculoId": 4,
+    "fecha": "2026-09-07",
+    "horaInicio": "09:00",
+    "horaFinEstimada": "15:00",
+    "estado": "en_progreso"
+  }
+]

@@ -27,8 +27,8 @@ app.use("/personas", exampleRoutes);
 // const incidenciasRoutes = require("./routes/incidenciasRoutes");
 // app.use("/incidencias", incidenciasRoutes);
 
-// const rutasRoutes = require("./routes/rutasRoutes");
-// app.use("/rutas", rutasRoutes);
+const rutasRoutes = require("./routes/rutasRoutes");
+app.use("/rutas", rutasRoutes);
 
 // const vehiculosRoutes = require("./routes/vehiculosRoutes");
 // app.use("/vehiculos", vehiculosRoutes);
