@@ -15,10 +15,10 @@ const guardarChoferes = (choferes) => {
   fs.writeFileSync(rutaArchivo, JSON.stringify(choferes, null, 2));
 };
 
-// lucas: lista todos los choferes registrados
+// lucas: renderiza vista principal de choferes
 const obtenerChoferes = (req, res) => {
   const choferes = leerChoferes();
-  res.json(choferes);
+  res.render("choferes", { titulo: "Modulo Choferes", choferes });
 };
 
 // lucas: busca chofer por su id

@@ -1,0 +1,52 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    title Modulo Choferes
+  body
+    nav
+      a(href="/choferes") Choferes
+      |  | 
+      a(href="/entregas") Entregas
+      |  | 
+      a(href="/incidencias") Incidencias
+      |  | 
+      a(href="/rutas") Rutas
+      |  | 
+      a(href="/vehiculos") Vehiculos
+    hr
+
+    h2 Modulo de Choferes
+
+    h3 Registrar Chofer
+    form(action="/choferes" method="POST")
+      label(for="nombre") Nombre: 
+      input#nombre(type="text" name="nombre" required)
+      br
+      br
+      label(for="apellido") Apellido: 
+      input#apellido(type="text" name="apellido" required)
+      br
+      br
+      button(type="submit") Guardar Chofer
+
+    h3 Listado de Choferes
+    if choferes && choferes.length
+      table(border="1")
+        thead
+          tr
+            th ID
+            th Nombre
+            th Apellido
+            th Acciones
+        tbody
+          each chofer in choferes
+            tr
+              td= chofer.id
+              td= chofer.nombre
+              td= chofer.apellido
+              td
+                a(href=`/choferes/${chofer.id}`)
+                  button(type="button") Ver mas
+    else
+      p No hay choferes registrados actualmente.
