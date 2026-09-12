@@ -1,1 +1,32 @@
-[]
+[
+    {
+        "id": 1,
+        "patente": "AB187SA",
+        "tipo": "Camioneta",
+        "capacidadKg": 1000,
+        "temperaturaMin": -2,
+        "temperaturaMax": 8,
+        "estado": "disponible"
+    },
+
+    {
+        "id": 2,
+        "patente": "AA789CN",
+        "tipo": "Camión",
+        "capacidadKg": 5000,
+        "temperaturaMin": -5,
+        "temperaturaMax": 10,
+        "estado": "mantenimiento"
+    },
+
+    {
+        "id": 3,
+        "patente": "AF456RE",
+        "tipo": "Furgoneta",
+        "capacidadKg": 800,
+        "temperaturaMin": -1,
+        "temperaturaMax": 5,
+        "estado": "ruta"
+    }
+
+]
