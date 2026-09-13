@@ -15,10 +15,10 @@ const guardarRutas = (rutas) => {
     fs.writeFileSync(rutaArchivo, JSON.stringify(rutas, null, 2));
 };
 
-// judith: lista todas las rutas registradas
+// judith: renderiza vista de todas las rutas registradas
 const obtenerRutas = (req, res) => {
     const rutas = leerRutas();
-    res.json(rutas);
+    res.render("rutas", { titulo: "Módulo Rutas", rutas });
 };
 
 // judith: obtiene una ruta por id
@@ -122,17 +122,10 @@ const eliminarRuta = (req, res) => {
     });
 };
 
-// judith: renderiza vista pug de rutas
-const renderizarVistaRutas = (req, res) => {
-  const rutas = leerRutas();
-  res.render("example", { titulo: "Modulo de Ejemplo - Rutas", rutas });
-};
-
 module.exports = {
     obtenerRutas,
     obtenerRutaPorId,
     crearRuta,
     actualizarRuta,
     eliminarRuta,
-    renderizarVistaRutas
 };
