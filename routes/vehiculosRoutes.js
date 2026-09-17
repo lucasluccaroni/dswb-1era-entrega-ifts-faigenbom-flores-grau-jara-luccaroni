@@ -4,6 +4,7 @@ const router = express.Router();
 const {
   obtenerVehiculos,
   obtenerVehiculoPorId,
+  mostrarDetalleVehiculo,
   crearVehiculo,
   actualizarVehiculo,
   eliminarVehiculo,
@@ -14,6 +15,9 @@ const validarVehiculo = require("../middleware/validarVehiculo");
 
 //mauro: ruta para mostrar vista pug de vehiculos
 router.get("/vista", mostrarVehiculos);
+
+//mauro: ruta para mostrar vista pug de detalle de un vehiculo
+router.get("/:id/vista", mostrarDetalleVehiculo);
 
 //mauro: ruta para listar todos los vehiculos
 router.get("/", obtenerVehiculos);
