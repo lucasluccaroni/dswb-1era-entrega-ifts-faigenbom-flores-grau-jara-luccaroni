@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  h1 Gestión de Incidencias
+
+  h2 Registrar Nueva Incidencia
+  form(action="/incidencias" method="POST")
+    div
+      label(for="tipo") Tipo de Incidencia:
+      input(type="text" name="tipo" id="tipo" required)
+    div
+      label(for="descripcion") Descripción:
+      input(type="text" name="descripcion" id="descripcion" required)
+    button(type="submit") Guardar
+
+  hr
+
+  h2 Listado de Incidencias
+  if incidencias.length > 0
+    table(border="1")
+      thead
+        tr
+          th ID
+          th Tipo
+          th Descripción
+      tbody
+        each inc in incidencias
+          tr
+            td= inc.id
+            td= inc.tipo
+            td= inc.descripcion
+  else
+    p No hay incidencias registradas.

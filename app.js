@@ -24,8 +24,8 @@ app.use("/choferes", choferesRoutes);
 const entregasRoutes = require("./routes/entregasRoutes");
 app.use("/entregas", entregasRoutes);
 
-// const incidenciasRoutes = require("./routes/incidenciasRoutes");
-// app.use("/incidencias", incidenciasRoutes);
+const incidenciasRoutes = require("./routes/incidenciasRoutes");
+app.use("/incidencias", incidenciasRoutes);
 
 const rutasRoutes = require("./routes/rutasRoutes");
 app.use("/rutas", rutasRoutes);
