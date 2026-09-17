@@ -50,7 +50,7 @@ const mostrarDetalleVehiculo = (req, res) => {
     return res.status(404).send("Vehiculo no encontrado");
   }
 
-  res.render("vehiculo-detalle", { titulo: "Detalle del Vehiculo", vehiculo });
+  res.render("vehiculos-detalle", { titulo: "Detalle del Vehiculo", vehiculo });
 };
 
 // mauro: crea un vehiculo nuevo
