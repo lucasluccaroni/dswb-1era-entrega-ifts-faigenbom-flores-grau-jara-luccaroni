@@ -1,0 +1,72 @@
+extends layout
+
+block contenido
+  h2 Modulo de Vehiculos
+
+  section.formulario-seccion
+    h3 Agregar Vehiculo
+    form(action="/vehiculos" method="POST")
+      div
+        label(for="patente") Patente:
+        input(type="text" name="patente" required)
+      div
+        label(for="tipo") Tipo:
+        input(type="text" name="tipo" required)
+      div
+        label(for="capacidadKg") Capacidad (kg):
+        input(type="number" name="capacidadKg" required)
+      div
+        label(for="temperaturaMin") Temperatura Minima:
+        input(type="number" name="temperaturaMin" required)
+      div
+        label(for="temperaturaMax") Temperatura Maxima:
+        input(type="number" name="temperaturaMax" required)
+      div
+        label(for="estado") Estado:
+        select#estado(name="estado" required)
+          option(value="Disponible") Disponible
+          option(value="En_ruta") En Ruta
+          option(value="Mantenimiento") Mantenimiento
+      button(type="submit") Guardar
+
+  section.listado-seccion
+    h3 Lista de Vehiculos
+    if vehiculos && vehiculos.length
+      table
+        thead
+          tr
+            th ID
+            th Patente
+            th Tipo
+            th Capacidad (Kg)
+            th Temp. Min
+            th Temp. Max
+            th Estado
+            th Acciones
+        tbody
+          each vehiculo in vehiculos
+            tr
+              td= vehiculo.id
+              td= vehiculo.patente
+              td= vehiculo.tipo
+              td= vehiculo.capacidadKg
+              td= vehiculo.temperaturaMin
+              td= vehiculo.temperaturaMax
+              td= vehiculo.estado
+              td
+                a(href=`/vehiculos/${vehiculo.id}/vista`) Ver mas
+                button.btn-eliminar(type="button" data-id=vehiculo.id) Eliminar
+    else
+      p No hay vehiculos registrados actualmente.
+
+  script.
+    document.querySelectorAll(".btn-eliminar").forEach(function (boton) {
+      boton.addEventListener('click', function () {
+        var id = boton.getAttribute("data-id");
+        var confirmar = confirm('Seguro que queres eliminar este vehiculo?');
+        if (!confirmar) return;
+        fetch("/vehiculos/" + id, { method: "DELETE" }).then(function () {
+          location.reload();
+        });
+      });
+    });
