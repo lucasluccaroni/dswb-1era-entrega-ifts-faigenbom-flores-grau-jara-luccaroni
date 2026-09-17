@@ -21,6 +21,12 @@ const obtenerVehiculos = (req, res) => {
   res.json(vehiculos);
 };
 
+//mauro: muestra la vista de vehiculos
+const mostrarVehiculos = (req, res) => {
+  const vehiculos = leerVehiculos();
+  res.render("vehiculos", {titulo: "modulo vehiculos", vehiculos}); 
+};
+
 // mauro: busca vehiculo por su id
 const obtenerVehiculoPorId = (req, res) => {
   const vehiculos = leerVehiculos();
@@ -32,6 +38,19 @@ const obtenerVehiculoPorId = (req, res) => {
   }
 
   res.json(vehiculo);
+};
+
+// mauro: muestra vista de detalle de un vehiculo
+const mostrarDetalleVehiculo = (req, res) => {
+  const vehiculos = leerVehiculos();
+  const id = parseInt(req.params.id);
+  const vehiculo = vehiculos.find((v) => v.id === id);
+
+  if (!vehiculo) {
+    return res.status(404).send("Vehiculo no encontrado");
+  }
+
+  res.render("vehiculo-detalle", { titulo: "Detalle del Vehiculo", vehiculo });
 };
 
 // mauro: crea un vehiculo nuevo
@@ -79,7 +98,9 @@ const eliminarVehiculo = (req, res) => {
 module.exports = {
   obtenerVehiculos,
   obtenerVehiculoPorId,
+  mostrarDetalleVehiculo,
   crearVehiculo,
   actualizarVehiculo,
   eliminarVehiculo,
-};
+  mostrarVehiculos
+ };
