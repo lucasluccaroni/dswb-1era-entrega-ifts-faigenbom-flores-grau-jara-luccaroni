@@ -1,0 +1,38 @@
+extends layout
+
+block contenido
+  h2 Modulo de Entregas
+
+  section.formulario-seccion
+    h3 Registrar Entrega
+    form(action="/entregas" method="POST")
+      div
+        label(for="cliente") Cliente:
+        input#cliente(type="text" name="cliente" required)
+      div
+        label(for="direccion") Direccion:
+        input#direccion(type="text" name="direccion" required)
+      div
+        label(for="estado") Estado:
+        input#estado(type="text" name="estado" required)
+      button(type="submit") Guardar
+
+  section.listado-seccion
+    h3 Lista de Entregas
+    if entregas && entregas.length
+      table
+        thead
+          tr
+            th ID
+            th Cliente
+            th Direccion
+            th Estado
+        tbody
+          each entrega in entregas
+            tr
+              td= entrega.id
+              td= entrega.cliente
+              td= entrega.direccion
+              td= entrega.estado
+    else
+      p No hay entregas registradas actualmente.
