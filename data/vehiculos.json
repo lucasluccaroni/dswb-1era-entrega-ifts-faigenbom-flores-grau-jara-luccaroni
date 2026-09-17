@@ -1,1 +1,29 @@
-[]
+[
+  {
+    "id": 1,
+    "patente": "AD327CD",
+    "tipo": "Camióneta",
+    "capacidadKg": 5000,
+    "temperaturaMin": -5,
+    "temperaturaMax": 10,
+    "estado": "Disponible"
+  },
+  {
+    "id": 2,
+    "patente": "AA789CN",
+    "tipo": "Camión",
+    "capacidadKg": 5000,
+    "temperaturaMin": -5,
+    "temperaturaMax": 10,
+    "estado": "Mantenimiento"
+  },
+  {
+    "id": 3,
+    "patente": "AF456RE",
+    "tipo": "Furgoneta",
+    "capacidadKg": 800,
+    "temperaturaMin": -1,
+    "temperaturaMax": 5,
+    "estado": "En ruta"
+  }
+]
