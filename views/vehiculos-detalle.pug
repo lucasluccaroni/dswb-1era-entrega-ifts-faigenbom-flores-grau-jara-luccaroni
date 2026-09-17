@@ -1,0 +1,15 @@
+extends layout
+
+block contenido
+  h2 Detalle del Vehiculo
+
+  ul
+    li ID: #{vehiculo.id}
+    li Patente: #{vehiculo.patente}
+    li Tipo: #{vehiculo.tipo}
+    li Capacidad: #{vehiculo.capacidadKg} kg
+    li Temperatura minima: #{vehiculo.temperaturaMin}
+    li Temperatura maxima: #{vehiculo.temperaturaMax}
+    li Estado: #{vehiculo.estado}
+
+  a(href="/vehiculos/vista") Volver al listado
