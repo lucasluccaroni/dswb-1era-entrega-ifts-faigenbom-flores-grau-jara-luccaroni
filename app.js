@@ -13,10 +13,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
-// modulo de ejemplo activo
-const exampleRoutes = require("./routes/exampleRoutes");
-app.use("/personas", exampleRoutes);
-
 // rutas modulares del equipo
 const choferesRoutes = require("./routes/choferesRoutes");
 app.use("/choferes", choferesRoutes);
