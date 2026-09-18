@@ -1,50 +1,32 @@
-doctype html
-html(lang="es")
-  head
-    meta(charset="UTF-8")
-    title Modulo Rutas
-  body
-    nav
-      a(href="/choferes") Choferes
-      |  | 
-      a(href="/entregas") Entregas
-      |  | 
-      a(href="/incidencias") Incidencias
-      |  | 
-      a(href="/rutas") Rutas
-      |  | 
-      a(href="/vehiculos") Vehiculos
-    hr
+extends layout
 
-    h2 Modulo de Rutas
+block contenido
+  h2 Modulo de Rutas
 
+  section.formulario-seccion
     h3 Registrar Ruta
     form(action="/rutas" method="POST")
-      label(for="choferId") ID del chofer:
-      input#choferId(type="number" name="choferId" min="1" required)
-      br
-      br
-      label(for="vehiculoId") ID del vehiculo:
-      input#vehiculoId(type="number" name="vehiculoId" min="1" required)
-      br
-      br
-      label(for="fecha") Fecha:
-      input#fecha(type="date" name="fecha" required)
-      br
-      br
-      label(for="horaInicio") Hora de inicio:
-      input#horaInicio(type="time" name="horaInicio" required)
-      br
-      br
-      label(for="horaFinEstimada") Hora de fin estimada:
-      input#horaFinEstimada(type="time" name="horaFinEstimada" required)
-      br
-      br
+      div
+        label(for="choferId") ID del chofer:
+        input#choferId(type="number" name="choferId" min="1" required)
+      div
+        label(for="vehiculoId") ID del vehiculo:
+        input#vehiculoId(type="number" name="vehiculoId" min="1" required)
+      div
+        label(for="fecha") Fecha:
+        input#fecha(type="date" name="fecha" required)
+      div
+        label(for="horaInicio") Hora de inicio:
+        input#horaInicio(type="time" name="horaInicio" required)
+      div
+        label(for="horaFinEstimada") Hora de fin estimada:
+        input#horaFinEstimada(type="time" name="horaFinEstimada" required)
       button(type="submit") Guardar Ruta
 
+  section.listado-seccion
     h3 Listado de Rutas
     if rutas && rutas.length
-      table(border="1")
+      table
         thead
           tr
             th ID

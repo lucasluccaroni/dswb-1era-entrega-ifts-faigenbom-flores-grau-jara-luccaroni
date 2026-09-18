@@ -1,38 +1,23 @@
-doctype html
-html(lang="es")
-  head
-    meta(charset="UTF-8")
-    title Modulo Choferes
-  body
-    nav
-      a(href="/choferes") Choferes
-      |  | 
-      a(href="/entregas") Entregas
-      |  | 
-      a(href="/incidencias") Incidencias
-      |  | 
-      a(href="/rutas") Rutas
-      |  | 
-      a(href="/vehiculos") Vehiculos
-    hr
+extends layout
 
-    h2 Modulo de Choferes
+block contenido
+  h2 Modulo de Choferes
 
+  section.formulario-seccion
     h3 Registrar Chofer
     form(action="/choferes" method="POST")
-      label(for="nombre") Nombre: 
-      input#nombre(type="text" name="nombre" required)
-      br
-      br
-      label(for="apellido") Apellido: 
-      input#apellido(type="text" name="apellido" required)
-      br
-      br
+      div
+        label(for="nombre") Nombre:
+        input#nombre(type="text" name="nombre" required)
+      div
+        label(for="apellido") Apellido:
+        input#apellido(type="text" name="apellido" required)
       button(type="submit") Guardar Chofer
 
+  section.listado-seccion
     h3 Listado de Choferes
     if choferes && choferes.length
-      table(border="1")
+      table
         thead
           tr
             th ID
