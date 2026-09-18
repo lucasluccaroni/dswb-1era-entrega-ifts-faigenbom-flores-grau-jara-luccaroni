@@ -18,7 +18,7 @@ const guardarChoferes = (choferes) => {
 // lucas: renderiza vista principal de choferes
 const obtenerChoferes = (req, res) => {
   const choferes = leerChoferes();
-  res.render("choferes", { titulo: "Modulo Choferes", choferes });
+  res.render("choferes", { titulo: "Módulo Choferes", choferes });
 };
 
 // lucas: busca chofer por su id

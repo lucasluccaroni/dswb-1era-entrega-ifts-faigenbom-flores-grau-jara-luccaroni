@@ -1,33 +1,37 @@
 extends layout
 
 block contenido
-  h1 Gestión de Incidencias
+  h2 Módulo de Incidencias
 
-  h2 Registrar Nueva Incidencia
-  form(action="/incidencias" method="POST")
-    div
-      label(for="tipo") Tipo de Incidencia:
-      input(type="text" name="tipo" id="tipo" required)
-    div
-      label(for="descripcion") Descripción:
-      input(type="text" name="descripcion" id="descripcion" required)
-    button(type="submit") Guardar
+  section.formulario-seccion
+    h3 Registrar Incidencia
+    form(action="/incidencias" method="POST")
+      div
+        label(for="tipo") Tipo de Incidencia:
+        input(type="text" name="tipo" id="tipo" required)
+      div
+        label(for="descripcion") Descripción:
+        input(type="text" name="descripcion" id="descripcion" required)
+      button(type="submit") Guardar Incidencias
 
-  hr
-
-  h2 Listado de Incidencias
-  if incidencias.length > 0
-    table(border="1")
-      thead
-        tr
-          th ID
-          th Tipo
-          th Descripción
-      tbody
-        each inc in incidencias
+  section.listado-seccion
+    h3 Listado de Incidencias
+    if incidencias.length > 0
+      table(border="1")
+        thead
           tr
-            td= inc.id
-            td= inc.tipo
-            td= inc.descripcion
-  else
-    p No hay incidencias registradas.
+            th ID
+            th Tipo
+            th Descripción
+            th Acciones
+        tbody
+          each inc in incidencias
+            tr
+              td= inc.id
+              td= inc.tipo
+              td= inc.descripcion
+              td
+                a(href=`/incidencias/${inc.id}`) 
+                  button(type="button") Ver más
+    else
+      p No hay incidencias registradas.

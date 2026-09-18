@@ -30,12 +30,12 @@ app.use("/incidencias", incidenciasRoutes);
 const rutasRoutes = require("./routes/rutasRoutes");
 app.use("/rutas", rutasRoutes);
 
- const vehiculosRoutes = require("./routes/vehiculosRoutes");
- app.use("/vehiculos", vehiculosRoutes);
+const vehiculosRoutes = require("./routes/vehiculosRoutes");
+app.use("/vehiculos", vehiculosRoutes);
 
 // ruta principal de bienvenida
 app.get("/", (req, res) => {
-  res.render("layout", { titulo: "Inicio - Sistema Logistico" });
+  res.render("layout", { titulo: "Inicio - Sistema Logístico" });
 });
 
 // inicio del servidor express

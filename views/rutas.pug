@@ -1,7 +1,7 @@
 extends layout
 
 block contenido
-  h2 Modulo de Rutas
+  h2 Módulo de Rutas
 
   section.formulario-seccion
     h3 Registrar Ruta
@@ -10,7 +10,7 @@ block contenido
         label(for="choferId") ID del chofer:
         input#choferId(type="number" name="choferId" min="1" required)
       div
-        label(for="vehiculoId") ID del vehiculo:
+        label(for="vehiculoId") ID del vehículo:
         input#vehiculoId(type="number" name="vehiculoId" min="1" required)
       div
         label(for="fecha") Fecha:
@@ -31,7 +31,7 @@ block contenido
           tr
             th ID
             th Chofer ID
-            th Vehiculo ID
+            th Vehículo ID
             th Fecha
             th Hora de Inicio
             th Hora de Fin Estimada
@@ -48,6 +48,7 @@ block contenido
               td= ruta.horaFinEstimada
               td= ruta.estado
               td
-                a(href=`/rutas/${ruta.id}`) Ver mas
+                a(href=`/rutas/${ruta.id}`) 
+                  button(type="button") Ver más
     else
       p No hay rutas registradas actualmente.

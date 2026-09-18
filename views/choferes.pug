@@ -1,7 +1,7 @@
 extends layout
 
 block contenido
-  h2 Modulo de Choferes
+  h2 Módulo de Choferes
 
   section.formulario-seccion
     h3 Registrar Chofer
@@ -32,6 +32,6 @@ block contenido
               td= chofer.apellido
               td
                 a(href=`/choferes/${chofer.id}`)
-                  button(type="button") Ver mas
+                  button(type="button") Ver más
     else
       p No hay choferes registrados actualmente.

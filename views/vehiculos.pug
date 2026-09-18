@@ -1,10 +1,10 @@
 extends layout
 
 block contenido
-  h2 Modulo de Vehiculos
+  h2 Módulo de Vehículos
 
   section.formulario-seccion
-    h3 Agregar Vehiculo
+    h3 Agregar Vehículo
     form(action="/vehiculos" method="POST")
       div
         label(for="patente") Patente:
@@ -16,10 +16,10 @@ block contenido
         label(for="capacidadKg") Capacidad (kg):
         input(type="number" name="capacidadKg" required)
       div
-        label(for="temperaturaMin") Temperatura Minima:
+        label(for="temperaturaMin") Temperatura Mínima:
         input(type="number" name="temperaturaMin" required)
       div
-        label(for="temperaturaMax") Temperatura Maxima:
+        label(for="temperaturaMax") Temperatura Máxima:
         input(type="number" name="temperaturaMax" required)
       div
         label(for="estado") Estado:
@@ -27,10 +27,10 @@ block contenido
           option(value="Disponible") Disponible
           option(value="En_ruta") En Ruta
           option(value="Mantenimiento") Mantenimiento
-      button(type="submit") Guardar
+      button(type="submit") Guardar Vehículo
 
   section.listado-seccion
-    h3 Lista de Vehiculos
+    h3 Listado de Vehículos
     if vehiculos && vehiculos.length
       table
         thead
@@ -54,10 +54,11 @@ block contenido
               td= vehiculo.temperaturaMax
               td= vehiculo.estado
               td
-                a(href=`/vehiculos/${vehiculo.id}/vista`) Ver mas
-                button.btn-eliminar(type="button" data-id=vehiculo.id) Eliminar
+                a(href=`/vehiculos/${vehiculo.id}/vista`) 
+                  button(type="button") Ver más
+                //button.btn-eliminar(type="button" data-id=vehiculo.id) Eliminar
     else
-      p No hay vehiculos registrados actualmente.
+      p No hay vehículos registrados actualmente.
 
   script.
     document.querySelectorAll(".btn-eliminar").forEach(function (boton) {

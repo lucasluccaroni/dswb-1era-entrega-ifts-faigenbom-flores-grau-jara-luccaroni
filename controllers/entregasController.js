@@ -91,7 +91,7 @@ const eliminarEntrega = (req, res) => {
 // matias: renderiza vista pug de entregas
 const renderizarVistaEntregas = (req, res) => {
   const entregas = leerEntregas();
-  res.render("entregas", { titulo: "Modulo de Entregas", entregas });
+  res.render("entregas", { titulo: "Módulo de Entregas", entregas });
 };
 
 module.exports = {

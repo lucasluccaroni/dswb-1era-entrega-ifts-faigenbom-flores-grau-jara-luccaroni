@@ -1,7 +1,7 @@
 extends layout
 
 block contenido
-  h2 Modulo de Entregas
+  h2 Módulo de Entregas
 
   section.formulario-seccion
     h3 Registrar Entrega
@@ -10,23 +10,24 @@ block contenido
         label(for="cliente") Cliente:
         input#cliente(type="text" name="cliente" required)
       div
-        label(for="direccion") Direccion:
+        label(for="direccion") Dirección:
         input#direccion(type="text" name="direccion" required)
       div
         label(for="estado") Estado:
         input#estado(type="text" name="estado" required)
-      button(type="submit") Guardar
+      button(type="submit") Guardar Entregas 
 
   section.listado-seccion
-    h3 Lista de Entregas
+    h3 Listado de Entregas
     if entregas && entregas.length
       table
         thead
           tr
             th ID
             th Cliente
-            th Direccion
+            th Dirección
             th Estado
+            th Acciones
         tbody
           each entrega in entregas
             tr
@@ -34,5 +35,8 @@ block contenido
               td= entrega.cliente
               td= entrega.direccion
               td= entrega.estado
+              td
+                a(href=`/entregas/${entrega.id}`) 
+                  button(type="button") Ver más
     else
       p No hay entregas registradas actualmente.

@@ -24,7 +24,7 @@ const obtenerVehiculos = (req, res) => {
 //mauro: muestra la vista de vehiculos
 const mostrarVehiculos = (req, res) => {
   const vehiculos = leerVehiculos();
-  res.render("vehiculos", {titulo: "modulo vehiculos", vehiculos}); 
+  res.render("vehiculos", { titulo: "módulo vehículos", vehiculos });
 };
 
 // mauro: busca vehiculo por su id
@@ -34,7 +34,7 @@ const obtenerVehiculoPorId = (req, res) => {
   const vehiculo = vehiculos.find((v) => v.id === id);
 
   if (!vehiculo) {
-    return res.status(404).json({ mensaje: "Vehiculo no encontrado" });
+    return res.status(404).json({ mensaje: "Vehículo no encontrado" });
   }
 
   res.json(vehiculo);
@@ -47,18 +47,28 @@ const mostrarDetalleVehiculo = (req, res) => {
   const vehiculo = vehiculos.find((v) => v.id === id);
 
   if (!vehiculo) {
-    return res.status(404).send("Vehiculo no encontrado");
+    return res.status(404).send("Vehículo no encontrado");
   }
 
-  res.render("vehiculos-detalle", { titulo: "Detalle del Vehiculo", vehiculo });
+  res.render("vehiculos-detalle", { titulo: "Detalle del Vehículo", vehiculo });
 };
 
 // mauro: crea un vehiculo nuevo
 const crearVehiculo = (req, res) => {
   const vehiculos = leerVehiculos();
-  const nuevoId = vehiculos.length > 0 ? Math.max(...vehiculos.map((v) => v.id)) + 1 : 1;
-  const { patente, tipo, capacidadKg, temperaturaMin, temperaturaMax, estado } = req.body;
-  const nuevoVehiculo = new Vehiculo(nuevoId, patente, tipo, capacidadKg, temperaturaMin, temperaturaMax, estado);
+  const nuevoId =
+    vehiculos.length > 0 ? Math.max(...vehiculos.map((v) => v.id)) + 1 : 1;
+  const { patente, tipo, capacidadKg, temperaturaMin, temperaturaMax, estado } =
+    req.body;
+  const nuevoVehiculo = new Vehiculo(
+    nuevoId,
+    patente,
+    tipo,
+    capacidadKg,
+    temperaturaMin,
+    temperaturaMax,
+    estado,
+  );
 
   vehiculos.push(nuevoVehiculo);
   guardarVehiculos(vehiculos);
@@ -72,7 +82,7 @@ const actualizarVehiculo = (req, res) => {
   const vehiculoIndex = vehiculos.findIndex((v) => v.id === id);
 
   if (vehiculoIndex === -1) {
-    return res.status(404).json({ mensaje: "Vehiculo no encontrado" });
+    return res.status(404).json({ mensaje: "Vehículo no encontrado" });
   }
 
   vehiculos[vehiculoIndex] = { ...vehiculos[vehiculoIndex], ...req.body };
@@ -102,5 +112,5 @@ module.exports = {
   crearVehiculo,
   actualizarVehiculo,
   eliminarVehiculo,
-  mostrarVehiculos
- };
+  mostrarVehiculos,
+};

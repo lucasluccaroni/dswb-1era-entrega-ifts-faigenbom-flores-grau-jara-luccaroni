@@ -90,7 +90,7 @@ const eliminarPersona = (req, res) => {
 // lucas: renderiza vista pug de personas
 const renderizarVistaPersonas = (req, res) => {
   const personas = leerPersonas();
-  res.render("example", { titulo: "Modulo de Ejemplo - Personas", personas });
+  res.render("example", { titulo: "Módulo de Ejemplo - Personas", personas });
 };
 
 module.exports = {
