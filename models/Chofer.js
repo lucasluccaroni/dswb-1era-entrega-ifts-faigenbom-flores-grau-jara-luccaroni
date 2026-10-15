@@ -1,3 +1,4 @@
+// lucas: modelo chofer esquema mongoose
 import mongoose from "mongoose";
 
 const choferSchema = new mongoose.Schema(

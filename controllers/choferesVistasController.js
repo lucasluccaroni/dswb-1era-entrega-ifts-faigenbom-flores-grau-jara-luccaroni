@@ -1,3 +1,4 @@
+// lucas: controlador vistas de choferes
 import Chofer from "../models/Chofer.js";
 
 // lucas: crea error 404 para vista

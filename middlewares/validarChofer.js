@@ -1,3 +1,4 @@
+// lucas: middleware validacion de chofer
 const esTextoValido = (valor) => typeof valor === "string" && valor.trim() !== "";
 
 // lucas: valida campos requeridos de chofer
