@@ -3,19 +3,18 @@ html(lang="es")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title= titulo || "Sistema de Gestión Logística"
+    title= titulo ? `${titulo} | FreshRoute B2B` : "FreshRoute B2B"
     link(rel="stylesheet", href="/css/estilos.css")
   body
     header
-      h1 Sistema de Gestión Logística
+      h1 FreshRoute B2B
       nav
-        ul
-          li: a(href="/") Inicio
-          li: a(href="/choferes") Choferes
-          li: a(href="/entregas/vista") Entregas
-          li: a(href="/incidencias") Incidencias
-          li: a(href="/rutas") Rutas
-          li: a(href="/vehiculos/vista") Vehículos 
+        a(href="/") Inicio
+        a(href="/choferes") Choferes
+        a(href="/vehiculos") Vehículos
+        a(href="/rutas") Rutas
+        a(href="/entregas") Entregas
+        a(href="/incidencias") Incidencias
     main
       block contenido
     footer

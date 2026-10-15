@@ -1,40 +1,62 @@
-const express = require("express");
-const path = require("path");
+import express from "express";
+import dotenv from "dotenv";
+import { conectarDB } from "./config/db.js";
+import { notFound, errorHandler } from "./middlewares/errorHandler.js";
+
+import choferesRoutes from "./routes/choferesRoutes.js";
+import choferesVistasRoutes from "./routes/choferesVistasRoutes.js";
+// import vehiculosRoutes from "./routes/vehiculosRoutes.js";
+// import vehiculosVistasRoutes from "./routes/vehiculosVistasRoutes.js";
+// import rutasRoutes from "./routes/rutasRoutes.js";
+// import rutasVistasRoutes from "./routes/rutasVistasRoutes.js";
+// import entregasRoutes from "./routes/entregasRoutes.js";
+// import entregasVistasRoutes from "./routes/entregasVistasRoutes.js";
+// import incidenciasRoutes from "./routes/incidenciasRoutes.js";
+// import incidenciasVistasRoutes from "./routes/incidenciasVistasRoutes.js";
+
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// configuracion de middlewares base
+// middlewares globales de lectura de cuerpo
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static("public"));
 
-// configuracion del motor pug
+// motor de vistas pug
 app.set("view engine", "pug");
-app.set("views", path.join(__dirname, "views"));
+app.set("views", "./views");
 
-// rutas modulares del equipo
-const choferesRoutes = require("./routes/choferesRoutes");
-app.use("/choferes", choferesRoutes);
-
-const entregasRoutes = require("./routes/entregasRoutes");
-app.use("/entregas", entregasRoutes);
-
-const incidenciasRoutes = require("./routes/incidenciasRoutes");
-app.use("/incidencias", incidenciasRoutes);
-
-const rutasRoutes = require("./routes/rutasRoutes");
-app.use("/rutas", rutasRoutes);
-
-const vehiculosRoutes = require("./routes/vehiculosRoutes");
-app.use("/vehiculos", vehiculosRoutes);
-
-// ruta principal de bienvenida
 app.get("/", (req, res) => {
-  res.render("layout", { titulo: "Inicio - Sistema Logístico" });
+  res.status(200).render("inicio", { titulo: "Inicio" });
 });
 
-// inicio del servidor express
+app.get("/api", (req, res) => {
+  res.status(200).json({
+    api: "FreshRoute B2B",
+    recursos: ["/api/choferes", "/api/vehiculos", "/api/rutas", "/api/entregas", "/api/incidencias"],
+  });
+});
+
+app.use("/api/choferes", choferesRoutes);
+app.use("/choferes", choferesVistasRoutes);
+// app.use("/api/vehiculos", vehiculosRoutes);
+
+// app.use("/vehiculos", vehiculosVistasRoutes);
+// app.use("/api/rutas", rutasRoutes);
+// app.use("/rutas", rutasVistasRoutes);
+// app.use("/api/entregas", entregasRoutes);
+// app.use("/entregas", entregasVistasRoutes);
+// app.use("/api/incidencias", incidenciasRoutes);
+// app.use("/incidencias", incidenciasVistasRoutes);
+
+// siempre al final, en este orden
+app.use(notFound);
+app.use(errorHandler);
+
+await conectarDB();
+
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });

@@ -1,0 +1,10 @@
+extends layout
+
+block contenido
+  h2 Error #{status}
+  p= mensaje
+  if detalles && detalles.length
+    ul
+      each detalle in detalles
+        li= detalle
+  a(href="/") Volver al inicio

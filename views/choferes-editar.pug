@@ -1,0 +1,12 @@
+extends layout
+
+block contenido
+  h2 Editar chofer
+
+  form(action=`/choferes/${chofer._id}/actualizar`, method="POST")
+    label(for="nombre") Nombre
+    input#nombre(type="text", name="nombre", value=chofer.nombre, required)
+    label(for="apellido") Apellido
+    input#apellido(type="text", name="apellido", value=chofer.apellido, required)
+    button(type="submit") Actualizar
+    a(href="/choferes") Cancelar

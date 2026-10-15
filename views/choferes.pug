@@ -1,37 +1,32 @@
 extends layout
 
 block contenido
-  h2 Módulo de Choferes
+  h2 Choferes
 
-  section.formulario-seccion
-    h3 Registrar Chofer
-    form(action="/choferes" method="POST")
-      div
-        label(for="nombre") Nombre:
-        input#nombre(type="text" name="nombre" required)
-      div
-        label(for="apellido") Apellido:
-        input#apellido(type="text" name="apellido" required)
-      button(type="submit") Guardar Chofer
+  h3 Nuevo chofer
+  form(action="/choferes", method="POST")
+    label(for="nombre") Nombre
+    input#nombre(type="text", name="nombre", required)
+    label(for="apellido") Apellido
+    input#apellido(type="text", name="apellido", required)
+    button(type="submit") Guardar
 
-  section.listado-seccion
-    h3 Listado de Choferes
-    if choferes && choferes.length
-      table
-        thead
+  h3 Listado
+  if choferes.length
+    table
+      thead
+        tr
+          th Nombre
+          th Apellido
+          th Acciones
+      tbody
+        each chofer in choferes
           tr
-            th ID
-            th Nombre
-            th Apellido
-            th Acciones
-        tbody
-          each chofer in choferes
-            tr
-              td= chofer.id
-              td= chofer.nombre
-              td= chofer.apellido
-              td
-                a(href=`/choferes/${chofer.id}`)
-                  button(type="button") Ver más
-    else
-      p No hay choferes registrados actualmente.
+            td= chofer.nombre
+            td= chofer.apellido
+            td
+              a(href=`/choferes/${chofer._id}/editar`) Modificar
+              form.inline(action=`/choferes/${chofer._id}/eliminar`, method="POST")
+                button(type="submit") Eliminar
+  else
+    p No hay choferes cargados.
