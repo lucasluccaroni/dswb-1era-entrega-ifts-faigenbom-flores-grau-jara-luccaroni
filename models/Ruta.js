@@ -1,3 +1,4 @@
+// judith: modelo ruta esquema mongoose
 import mongoose from "mongoose";
 
 const rutaSchema = new mongoose.Schema(
