@@ -1,0 +1,54 @@
+extends layout
+
+block contenido
+  h2 Editar ruta
+
+  form(action=`/rutas/${ruta._id}/actualizar`, method="POST")
+    label(for="choferId") Chofer
+    select#choferId(name="choferId", required)
+      each chofer in choferes
+        option(
+          value=chofer._id
+          selected=(String(chofer._id) === String(ruta.choferId))
+        )= `${chofer.apellido}, ${chofer.nombre}`
+
+    label(for="vehiculoId") Vehículo
+    select#vehiculoId(name="vehiculoId", required)
+      each vehiculo in vehiculos
+        option(
+          value=vehiculo._id
+          selected=(String(vehiculo._id) === String(ruta.vehiculoId))
+        )= `${vehiculo.patente} (${vehiculo.tipo})`
+
+    label(for="fecha") Fecha
+    input#fecha(
+      type="date"
+      name="fecha"
+      value=ruta.fecha.toISOString().slice(0, 10)
+      required
+    )
+
+    label(for="horaInicio") Hora de inicio
+    input#horaInicio(
+      type="time"
+      name="horaInicio"
+      value=ruta.horaInicio
+      required
+    )
+
+    label(for="horaFinEstimada") Hora de fin estimada
+    input#horaFinEstimada(
+      type="time"
+      name="horaFinEstimada"
+      value=ruta.horaFinEstimada
+      required
+    )
+
+    label(for="estado") Estado
+    select#estado(name="estado", required)
+      option(value="pendiente", selected=(ruta.estado === "pendiente")) Pendiente
+      option(value="en_progreso", selected=(ruta.estado === "en_progreso")) En progreso
+      option(value="finalizada", selected=(ruta.estado === "finalizada")) Finalizada
+
+    button(type="submit") Actualizar ruta
+    a(href="/rutas") Cancelar

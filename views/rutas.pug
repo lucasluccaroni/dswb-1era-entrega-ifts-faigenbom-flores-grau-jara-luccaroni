@@ -1,0 +1,63 @@
+extends layout
+
+block contenido
+  h2 Rutas
+
+  h3 Nueva ruta
+  form(action="/rutas", method="POST")
+    label(for="choferId") Chofer
+    select#choferId(name="choferId", required)
+      option(value="") Seleccioná un chofer
+      each chofer in choferes
+        option(value=chofer._id)= `${chofer.apellido}, ${chofer.nombre}`
+
+    label(for="vehiculoId") Vehículo
+    select#vehiculoId(name="vehiculoId", required)
+      option(value="") Seleccioná un vehículo
+      each vehiculo in vehiculos
+        option(value=vehiculo._id)= `${vehiculo.patente} (${vehiculo.tipo})`
+
+    label(for="fecha") Fecha
+    input#fecha(type="date", name="fecha", required)
+
+    label(for="horaInicio") Hora de inicio
+    input#horaInicio(type="time", name="horaInicio", required)
+
+    label(for="horaFinEstimada") Hora de fin estimada
+    input#horaFinEstimada(type="time", name="horaFinEstimada", required)
+
+    label(for="estado") Estado
+    select#estado(name="estado")
+      option(value="pendiente", selected) Pendiente
+      option(value="en_progreso") En progreso
+      option(value="finalizada") Finalizada
+
+    button(type="submit") Guardar ruta
+
+  h3 Listado
+  if rutas.length
+    table
+      thead
+        tr
+          th Chofer ID
+          th Vehículo ID
+          th Fecha
+          th Hora de inicio
+          th Hora de fin estimada
+          th Estado
+          th Acciones
+      tbody
+        each ruta in rutas
+          tr
+            td= ruta.choferId
+            td= ruta.vehiculoId
+            td= ruta.fecha.toISOString().slice(0, 10)
+            td= ruta.horaInicio
+            td= ruta.horaFinEstimada
+            td= ruta.estado
+            td
+              a(href=`/rutas/${ruta._id}/editar`) Modificar
+              form.inline(action=`/rutas/${ruta._id}/eliminar`, method="POST")
+                button(type="submit") Eliminar
+  else
+    p No hay rutas cargadas.
