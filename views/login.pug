@@ -1,0 +1,24 @@
+//- lucas: vista login de usuario
+extends layout
+
+block contenido
+  h2 Iniciar sesión
+
+  if registrado
+    p.alerta-exito ¡Registro completado con éxito! Por favor, ingresá tus credenciales.
+
+  if error
+    p.alerta-error= error
+
+  form(action="/login", method="POST")
+    div
+      label(for="email") Correo electrónico:
+      input#email(type="email", name="email", value=valores && valores.email ? valores.email : "", required)
+    div
+      label(for="password") Contraseña:
+      input#password(type="password", name="password", required)
+    button(type="submit") Ingresar
+
+  p
+    span ¿No tenés una cuenta? 
+    a(href="/registro") Registrate acá

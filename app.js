@@ -5,6 +5,8 @@ import { notFound, errorHandler } from "./middlewares/errorHandler.js";
 
 import choferesRoutes from "./routes/choferesRoutes.js";
 import choferesVistasRoutes from "./routes/choferesVistasRoutes.js";
+import usuariosRoutes from "./routes/usuariosRoutes.js";
+import usuariosVistasRoutes from "./routes/usuariosVistasRoutes.js";
 // import vehiculosRoutes from "./routes/vehiculosRoutes.js";
 // import vehiculosVistasRoutes from "./routes/vehiculosVistasRoutes.js";
 // import rutasRoutes from "./routes/rutasRoutes.js";
@@ -35,10 +37,19 @@ app.get("/", (req, res) => {
 app.get("/api", (req, res) => {
   res.status(200).json({
     api: "FreshRoute B2B",
-    recursos: ["/api/choferes", "/api/vehiculos", "/api/rutas", "/api/entregas", "/api/incidencias"],
+    recursos: [
+      "/api/usuarios",
+      "/api/choferes",
+      "/api/vehiculos",
+      "/api/rutas",
+      "/api/entregas",
+      "/api/incidencias",
+    ],
   });
 });
 
+app.use("/api/usuarios", usuariosRoutes);
+app.use("/", usuariosVistasRoutes);
 app.use("/api/choferes", choferesRoutes);
 app.use("/choferes", choferesVistasRoutes);
 // app.use("/api/vehiculos", vehiculosRoutes);

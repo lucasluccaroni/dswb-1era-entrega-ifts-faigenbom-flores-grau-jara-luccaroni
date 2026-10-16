@@ -80,6 +80,8 @@ label {
 }
 
 input[type="text"],
+input[type="email"],
+input[type="password"],
 input[type="number"],
 input[type="date"],
 input[type="time"],
@@ -94,7 +96,9 @@ select {
   display: block;
 }
 
-button {
+button,
+.btn {
+  display: inline-block;
   background-color: #3498db;
   color: white;
   padding: 8px 16px;
@@ -102,10 +106,28 @@ button {
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
+  text-decoration: none;
 }
 
-button:hover {
+button:hover,
+.btn:hover {
   background-color: #2980b9;
+}
+
+.alerta-error {
+  color: #c0392b;
+  background-color: #fceae8;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.alerta-exito {
+  color: #27ae60;
+  background-color: #eafaf1;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
 }
 
 table {

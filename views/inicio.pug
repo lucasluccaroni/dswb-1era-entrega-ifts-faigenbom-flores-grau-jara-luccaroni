@@ -1,13 +1,24 @@
-//- lucas: vista inicio
+//- lucas: vista inicio con condicional auth
 extends layout
 
 block contenido
-  h2 Sistema de gestión logística
-  p Elegí un módulo para empezar.
-  ul
-    li: a(href="/choferes") Choferes
-    li: a(href="/vehiculos") Vehículos
-    li: a(href="/rutas") Rutas
-    li: a(href="/entregas") Entregas
-    li: a(href="/incidencias") Incidencias
-  p La API JSON está disponible en <code>/api</code>.
+  if usuario
+    h2 Bienvenido, #{usuario.nombre}
+    p Elegí un módulo para empezar a operar:
+    ul
+      li: a(href="/choferes") Choferes
+      li: a(href="/vehiculos") Vehículos
+      li: a(href="/rutas") Rutas
+      li: a(href="/entregas") Entregas
+      li: a(href="/incidencias") Incidencias
+    p
+      a(href="/") Cerrar sesión / Volver al inicio
+  else
+    h2 Sistema de gestión logística
+    p Para operar con los módulos del sistema, por favor inicia sesión o registrate.
+    div.acciones-auth
+      a.btn(href="/login") Iniciar sesión
+      span  o 
+      a.btn(href="/registro") Registrarse
+    br
+    p La API JSON está disponible en <code>/api</code>.

@@ -1,0 +1,24 @@
+//- lucas: vista registro de usuario
+extends layout
+
+block contenido
+  h2 Registro de nuevo usuario
+
+  if error
+    p.alerta-error= error
+
+  form(action="/registro", method="POST")
+    div
+      label(for="nombre") Nombre completo:
+      input#nombre(type="text", name="nombre", value=valores && valores.nombre ? valores.nombre : "", required)
+    div
+      label(for="email") Correo electrónico:
+      input#email(type="email", name="email", value=valores && valores.email ? valores.email : "", required)
+    div
+      label(for="password") Contraseña:
+      input#password(type="password", name="password", required)
+    button(type="submit") Crear cuenta
+
+  p
+    span ¿Ya tenés una cuenta? 
+    a(href="/login") Iniciar sesión
