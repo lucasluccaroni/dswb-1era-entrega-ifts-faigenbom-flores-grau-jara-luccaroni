@@ -9,8 +9,8 @@ import choferesVistasRoutes from "./routes/choferesVistasRoutes.js";
 // import vehiculosVistasRoutes from "./routes/vehiculosVistasRoutes.js";
 // import rutasRoutes from "./routes/rutasRoutes.js";
 // import rutasVistasRoutes from "./routes/rutasVistasRoutes.js";
-// import entregasRoutes from "./routes/entregasRoutes.js";
-// import entregasVistasRoutes from "./routes/entregasVistasRoutes.js";
+import entregasRoutes from "./routes/entregasRoutes.js";
+import entregasVistasRoutes from "./routes/entregasVistasRoutes.js";
 // import incidenciasRoutes from "./routes/incidenciasRoutes.js";
 // import incidenciasVistasRoutes from "./routes/incidenciasVistasRoutes.js";
 
@@ -46,8 +46,8 @@ app.use("/choferes", choferesVistasRoutes);
 // app.use("/vehiculos", vehiculosVistasRoutes);
 // app.use("/api/rutas", rutasRoutes);
 // app.use("/rutas", rutasVistasRoutes);
-// app.use("/api/entregas", entregasRoutes);
-// app.use("/entregas", entregasVistasRoutes);
+app.use("/api/entregas", entregasRoutes);
+app.use("/entregas", entregasVistasRoutes);
 // app.use("/api/incidencias", incidenciasRoutes);
 // app.use("/incidencias", incidenciasVistasRoutes);
 

@@ -1,0 +1,17 @@
+//- matias: vista edicion de entrega
+extends layout
+
+block contenido
+  h2 Editar entrega
+
+  form(action=`/entregas/${entrega._id}/actualizar`, method="POST")
+    label(for="cliente") Cliente
+    input#cliente(type="text", name="cliente", value=entrega.cliente, required)
+    label(for="direccion") Dirección
+    input#direccion(type="text", name="direccion", value=entrega.direccion, required)
+    label(for="estado") Estado
+    select#estado(name="estado", required)
+      each opcion in ["Pendiente", "En camino", "Entregado"]
+        option(value=opcion, selected=(entrega.estado === opcion))= opcion
+    button(type="submit") Actualizar
+    a(href="/entregas") Cancelar
