@@ -1,0 +1,20 @@
+{
+  "name": "freshroute-b2b-backend",
+  "version": "2.0.0",
+  "description": "FreshRoute B2B con Node.js, Express, Pug y MongoDB (Mongoose)",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mongoose": "^9.10.3",
+    "pug": "^3.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

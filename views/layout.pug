@@ -1,0 +1,21 @@
+doctype html
+html(lang="es")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title= titulo ? `${titulo} | FreshRoute B2B` : "FreshRoute B2B"
+    link(rel="stylesheet", href="/css/estilos.css")
+  body
+    header
+      h1 FreshRoute B2B
+      nav
+        a(href="/") Inicio
+        a(href="/choferes") Choferes
+        a(href="/vehiculos") Vehículos
+        a(href="/rutas") Rutas
+        a(href="/entregas") Entregas
+        a(href="/incidencias") Incidencias
+    main
+      block contenido
+    footer
+      p IFTS 29 - Tecnicatura Superior en Desarrollo de Software - 2026
