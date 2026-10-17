@@ -5,8 +5,8 @@ import { notFound, errorHandler } from "./middlewares/errorHandler.js";
 
 import choferesRoutes from "./routes/choferesRoutes.js";
 import choferesVistasRoutes from "./routes/choferesVistasRoutes.js";
-// import vehiculosRoutes from "./routes/vehiculosRoutes.js";
-// import vehiculosVistasRoutes from "./routes/vehiculosVistasRoutes.js";
+import vehiculosRoutes from "./routes/vehiculosRoutes.js";
+import vehiculosVistasRoutes from "./routes/vehiculosVistasRoutes.js";
 // import rutasRoutes from "./routes/rutasRoutes.js";
 // import rutasVistasRoutes from "./routes/rutasVistasRoutes.js";
 // import entregasRoutes from "./routes/entregasRoutes.js";
@@ -41,9 +41,9 @@ app.get("/api", (req, res) => {
 
 app.use("/api/choferes", choferesRoutes);
 app.use("/choferes", choferesVistasRoutes);
-// app.use("/api/vehiculos", vehiculosRoutes);
+app.use("/api/vehiculos", vehiculosRoutes);
 
-// app.use("/vehiculos", vehiculosVistasRoutes);
+app.use("/vehiculos", vehiculosVistasRoutes);
 // app.use("/api/rutas", rutasRoutes);
 // app.use("/rutas", rutasVistasRoutes);
 // app.use("/api/entregas", entregasRoutes);
