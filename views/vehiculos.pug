@@ -1,0 +1,52 @@
+extends layout
+
+block contenido
+  h2 Vehículos
+
+  h3 Nuevo vehículo
+  form(action="/vehiculos", method="POST")
+    label(for="patente") Patente
+    input#patente(type="text", name="patente", required)
+    label(for="tipo") Tipo
+    select#tipo(name="tipo", required)
+      each opcion in ["Camión", "Camioneta", "Furgoneta"]
+        option(value=opcion)= opcion
+    label(for="capacidadKg") Capacidad (kg)
+    input#capacidadKg(type="number", name="capacidadKg", min="1", required)
+    label(for="temperaturaMin") Temperatura mínima
+    input#temperaturaMin(type="number", name="temperaturaMin", required)
+    label(for="temperaturaMax") Temperatura máxima
+    input#temperaturaMax(type="number", name="temperaturaMax", required)
+    label(for="estado") Estado
+    select#estado(name="estado", required)
+      each opcion in ["Disponible", "En ruta", "Mantenimiento"]
+        option(value=opcion)= opcion
+    button(type="submit") Guardar
+
+  h3 Listado
+  if vehiculos.length
+    table
+      thead
+        tr
+          th Patente
+          th Tipo
+          th Capacidad (kg)
+          th Temp. mín
+          th Temp. máx
+          th Estado
+          th Acciones
+      tbody
+        each vehiculo in vehiculos
+          tr
+            td= vehiculo.patente
+            td= vehiculo.tipo
+            td= vehiculo.capacidadKg
+            td= vehiculo.temperaturaMin
+            td= vehiculo.temperaturaMax
+            td= vehiculo.estado
+            td
+              a(href=`/vehiculos/${vehiculo._id}/editar`) Modificar
+              form.inline(action=`/vehiculos/${vehiculo._id}/eliminar`, method="POST")
+                button(type="submit") Eliminar
+  else
+    p No hay vehículos cargados.
