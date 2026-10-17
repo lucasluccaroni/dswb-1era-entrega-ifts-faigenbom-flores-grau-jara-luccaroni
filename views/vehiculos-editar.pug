@@ -1,0 +1,24 @@
+extends layout
+
+block contenido
+  h2 Editar vehículo
+
+  form(action=`/vehiculos/${vehiculo._id}/actualizar`, method="POST")
+    label(for="patente") Patente
+    input#patente(type="text", name="patente", value=vehiculo.patente, required)
+    label(for="tipo") Tipo
+    select#tipo(name="tipo", required)
+      each opcion in ["Camión", "Camioneta", "Furgoneta"]
+        option(value=opcion, selected=(vehiculo.tipo === opcion))= opcion
+    label(for="capacidadKg") Capacidad (kg)
+    input#capacidadKg(type="number", name="capacidadKg", min="1", value=vehiculo.capacidadKg, required)
+    label(for="temperaturaMin") Temperatura mínima
+    input#temperaturaMin(type="number", name="temperaturaMin", value=vehiculo.temperaturaMin, required)
+    label(for="temperaturaMax") Temperatura máxima
+    input#temperaturaMax(type="number", name="temperaturaMax", value=vehiculo.temperaturaMax, required)
+    label(for="estado") Estado
+    select#estado(name="estado", required)
+      each opcion in ["Disponible", "En ruta", "Mantenimiento"]
+        option(value=opcion, selected=(vehiculo.estado === opcion))= opcion
+    button(type="submit") Actualizar
+    a(href="/vehiculos") Cancelar
