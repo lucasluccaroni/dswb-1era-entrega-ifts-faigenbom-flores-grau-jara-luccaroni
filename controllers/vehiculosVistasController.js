@@ -48,7 +48,7 @@ export const actualizarVehiculoVista = async (req, res, next) => {
     const vehiculoActualizado = await Vehiculo.findByIdAndUpdate(
       req.params.id,
       { patente, tipo, capacidadKg, temperaturaMin, temperaturaMax, estado },
-      { new: true, runValidators: true }
+      { returnDocument: "after", runValidators: true }
     );
     if (!vehiculoActualizado) {
       return next(crearError404());

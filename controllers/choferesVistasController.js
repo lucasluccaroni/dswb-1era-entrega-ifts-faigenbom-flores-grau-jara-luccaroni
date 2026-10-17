@@ -49,7 +49,7 @@ export const actualizarChoferVista = async (req, res, next) => {
     const choferActualizado = await Chofer.findByIdAndUpdate(
       req.params.id,
       { nombre, apellido },
-      { new: true, runValidators: true }
+      { returnDocument: "after", runValidators: true }
     );
     if (!choferActualizado) {
       return next(crearError404());

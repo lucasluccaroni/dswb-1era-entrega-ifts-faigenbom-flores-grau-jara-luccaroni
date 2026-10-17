@@ -43,7 +43,7 @@ export const actualizarChofer = async (req, res, next) => {
     const choferActualizado = await Chofer.findByIdAndUpdate(
       req.params.id,
       { nombre, apellido },
-      { new: true, runValidators: true }
+      { returnDocument: "after", runValidators: true }
     );
     if (!choferActualizado) {
       return res.status(404).json({ error: "Chofer no encontrado" });
