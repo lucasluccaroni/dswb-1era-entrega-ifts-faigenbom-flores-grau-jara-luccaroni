@@ -7,6 +7,19 @@ const crearError404 = () => {
   return error;
 };
 
+// mauro: obtiene un vehiculo por id y lo muestra en vista
+export const obtenerVehiculosPorId = async (req, res, next) => {
+  try {
+    const vehiculo = await Vehiculo.findById(req.params.id);
+    if (!vehiculo) {
+      return next(crearError404());
+    }
+    res.status(200).render("vehiculos-detalle", { titulo: "Detalle del vehículo", vehiculo });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // mauro: muestra listado y formulario de alta
 export const listarVehiculosVista = async (req, res, next) => {
   try {

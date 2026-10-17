@@ -12,18 +12,20 @@ export const obtenerVehiculos = async (req, res, next) => {
 };
 
 // mauro: busca un vehiculo por id
-export const obtenerVehiculoPorId = async (req, res, next) => {
+export const obtenerVehiculoPorId = async (req, res) => {
   try {
-    const vehiculo = await Vehiculo.findById(req.params.id);
+    const { id } = req.params;
+    const vehiculo = await Vehiculo.findById(id);
+
     if (!vehiculo) {
-      return res.status(404).json({ error: "Vehículo no encontrado" });
+      return res.status(404).json({ mensaje: 'Vehículo no encontrado' });
     }
-    res.status(200).json(vehiculo);
+
+    return res.status(200).json(vehiculo);
   } catch (error) {
-    next(error);
+    return res.status(500).json({ mensaje: 'Error al obtener el vehículo', error: error.message });
   }
 };
-
 // mauro: crea un vehiculo nuevo
 export const crearVehiculo = async (req, res, next) => {
   try {
