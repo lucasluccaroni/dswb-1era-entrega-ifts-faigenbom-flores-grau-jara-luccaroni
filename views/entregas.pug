@@ -1,0 +1,39 @@
+//- matias: vista listado y alta entregas
+extends layout
+
+block contenido
+  h2 Entregas
+
+  h3 Nueva entrega
+  form(action="/entregas", method="POST")
+    label(for="cliente") Cliente
+    input#cliente(type="text", name="cliente", required)
+    label(for="direccion") Dirección
+    input#direccion(type="text", name="direccion", required)
+    label(for="estado") Estado
+    select#estado(name="estado", required)
+      each opcion in ["Pendiente", "En camino", "Entregado"]
+        option(value=opcion)= opcion
+    button(type="submit") Guardar
+
+  h3 Listado
+  if entregas.length
+    table
+      thead
+        tr
+          th Cliente
+          th Dirección
+          th Estado
+          th Acciones
+      tbody
+        each entrega in entregas
+          tr
+            td= entrega.cliente
+            td= entrega.direccion
+            td= entrega.estado
+            td
+              a(href=`/entregas/${entrega._id}/editar`) Modificar
+              form.inline(action=`/entregas/${entrega._id}/eliminar`, method="POST")
+                button(type="submit") Eliminar
+  else
+    p No hay entregas cargadas.
