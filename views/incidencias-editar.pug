@@ -1,0 +1,13 @@
+//- ivan: vista edicion de incidencia
+extends layout
+
+block contenido
+  h2 Editar incidencia
+
+  form(action=`/incidencias/${incidencia._id}/actualizar`, method="POST")
+    label(for="tipo") Tipo
+    input#tipo(type="text", name="tipo", value=incidencia.tipo, required)
+    label(for="descripcion") Descripción
+    textarea#descripcion(name="descripcion", required)= incidencia.descripcion
+    button(type="submit") Actualizar
+    a(href="/incidencias") Cancelar

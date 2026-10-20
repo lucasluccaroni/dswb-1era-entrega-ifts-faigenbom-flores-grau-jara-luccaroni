@@ -1,0 +1,33 @@
+//- ivan: vista listado y alta incidencias
+extends layout
+
+block contenido
+  h2 Incidencias
+
+  h3 Nueva incidencia
+  form(action="/incidencias", method="POST")
+    label(for="tipo") Tipo
+    input#tipo(type="text", name="tipo", required)
+    label(for="descripcion") Descripción
+    textarea#descripcion(name="descripcion", required)
+    button(type="submit") Guardar
+
+  h3 Listado
+  if incidencias.length
+    table
+      thead
+        tr
+          th Tipo
+          th Descripción
+          th Acciones
+      tbody
+        each incidencia in incidencias
+          tr
+            td= incidencia.tipo
+            td= incidencia.descripcion
+            td
+              a(href=`/incidencias/${incidencia._id}/editar`) Modificar
+              form.inline(action=`/incidencias/${incidencia._id}/eliminar`, method="POST")
+                button(type="submit") Eliminar
+  else
+    p No hay incidencias cargadas.
