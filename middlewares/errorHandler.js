@@ -16,8 +16,9 @@ const traducirError = (err) => {
   if (err.code === 11000) {
     return { status: 409, mensaje: "Ya existe un registro con ese valor único", detalles: [] };
   }
-  if (err.status === 404) {
-    return { status: 404, mensaje: err.message, detalles: [] };
+  // errores creados con crearError(status, mensaje): 401, 403, 404, 409
+  if (Number.isInteger(err.status) && err.status >= 400 && err.status < 500) {
+    return { status: err.status, mensaje: err.message, detalles: [] };
   }
   return { status: 500, mensaje: "Error interno del servidor", detalles: [] };
 };

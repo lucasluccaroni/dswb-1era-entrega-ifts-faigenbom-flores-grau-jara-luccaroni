@@ -1,5 +1,6 @@
 // matias: rutas vistas de entregas
 import express from "express";
+import { autorizar } from "../middlewares/autorizarRol.js";
 import {
   listarEntregasVista,
   crearEntregaVista,
@@ -10,10 +11,10 @@ import {
 
 const router = express.Router();
 
-router.get("/", listarEntregasVista);
-router.post("/", crearEntregaVista);
-router.get("/:id/editar", editarEntregaVista);
-router.post("/:id/actualizar", actualizarEntregaVista);
-router.post("/:id/eliminar", eliminarEntregaVista);
+router.get("/", autorizar("entregas", "ver"), listarEntregasVista);
+router.post("/", autorizar("entregas", "crear"), crearEntregaVista);
+router.get("/:id/editar", autorizar("entregas", "editar"), editarEntregaVista);
+router.post("/:id/actualizar", autorizar("entregas", "editar"), actualizarEntregaVista);
+router.post("/:id/eliminar", autorizar("entregas", "eliminar"), eliminarEntregaVista);
 
 export default router;

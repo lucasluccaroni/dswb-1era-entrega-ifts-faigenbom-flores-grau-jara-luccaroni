@@ -19,6 +19,7 @@ block contenido
       input#password(type="password", name="password", required)
     button(type="submit") Ingresar
 
-  p
-    span ¿No tenés una cuenta? 
-    a(href="/registro") Registrate acá
+  if registroPublico
+    p
+      span ¿No tenés una cuenta? 
+      a(href="/registro") Registrate acá

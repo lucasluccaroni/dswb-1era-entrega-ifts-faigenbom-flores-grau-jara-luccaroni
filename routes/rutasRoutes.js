@@ -1,5 +1,6 @@
 // judith: rutas api de rutas
 import express from "express";
+import { autorizar } from "../middlewares/autorizarRol.js";
 import {
   obtenerRutas,
   obtenerRutaPorId,
@@ -11,10 +12,10 @@ import validarRuta from "../middlewares/validarRuta.js";
 
 const router = express.Router();
 
-router.get("/", obtenerRutas);
-router.get("/:id", obtenerRutaPorId);
-router.post("/", validarRuta, crearRuta);
-router.put("/:id", validarRuta, actualizarRuta);
-router.delete("/:id", eliminarRuta);
+router.get("/", autorizar("rutas", "ver"), obtenerRutas);
+router.get("/:id", autorizar("rutas", "ver"), obtenerRutaPorId);
+router.post("/", autorizar("rutas", "crear"), validarRuta, crearRuta);
+router.put("/:id", autorizar("rutas", "editar"), validarRuta, actualizarRuta);
+router.delete("/:id", autorizar("rutas", "eliminar"), eliminarRuta);
 
 export default router;

@@ -1,5 +1,4 @@
 node_modules/
-package-lock.json
 .env
 .DS_Store
 Thumbs.db
@@ -7,3 +6,5 @@ docs/
 estado_actual.md
 documento-maestro.md
 documento-maestro-2do-parcial.md
+documento-maestro-3era-entrega.md
+ficha-*.md

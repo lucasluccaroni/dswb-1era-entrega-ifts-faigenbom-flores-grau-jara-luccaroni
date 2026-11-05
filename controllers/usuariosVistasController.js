@@ -1,5 +1,7 @@
 // lucas: controlador vistas de usuarios
 import Usuario from "../models/Usuario.js";
+import { hashearPassword, verificarPassword } from "../utils/password.js";
+import { crearSesion, destruirSesion } from "../utils/sesion.js";
 
 const esTextoValido = (valor) => typeof valor === "string" && valor.trim() !== "";
 const esEmailValido = (valor) =>
@@ -46,10 +48,13 @@ export const procesarRegistroVista = async (req, res, next) => {
       });
     }
 
+    // el rol nunca se toma del formulario, siempre arranca como operador
+    const { salt, passwordHash } = await hashearPassword(password);
     await new Usuario({
       nombre: nombre.trim(),
       email: emailNormalizado,
-      password,
+      passwordHash,
+      salt,
     }).save();
 
     res.redirect("/login?registrado=true");
@@ -84,9 +89,11 @@ export const procesarLoginVista = async (req, res, next) => {
     }
 
     const emailNormalizado = email.toLowerCase().trim();
-    const usuario = await Usuario.findOne({ email: emailNormalizado, password });
+    const usuario = await Usuario.findOne({ email: emailNormalizado }).select(
+      "+passwordHash +salt"
+    );
 
-    if (!usuario) {
+    if (!usuario || !(await verificarPassword(password, usuario))) {
       return res.status(401).render("login", {
         titulo: "Iniciar sesion",
         registrado: false,
@@ -95,13 +102,18 @@ export const procesarLoginVista = async (req, res, next) => {
       });
     }
 
-    res.status(200).render("inicio", {
-      titulo: "Inicio",
-      usuario: {
-        nombre: usuario.nombre,
-        email: usuario.email,
-      },
-    });
+    await crearSesion(res, usuario);
+    res.redirect("/");
+  } catch (error) {
+    next(error);
+  }
+};
+
+// lucas: cierra la sesion y vuelve al login
+export const procesarLogoutVista = async (req, res, next) => {
+  try {
+    await destruirSesion(req, res);
+    res.redirect("/login");
   } catch (error) {
     next(error);
   }

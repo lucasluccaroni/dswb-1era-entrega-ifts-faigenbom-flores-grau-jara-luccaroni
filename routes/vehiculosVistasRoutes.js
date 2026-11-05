@@ -1,4 +1,5 @@
 import express from "express";
+import { autorizar } from "../middlewares/autorizarRol.js";
 import {
   obtenerVehiculosPorId,
   listarVehiculosVista,
@@ -10,11 +11,11 @@ import {
 
 const router = express.Router();
 
-router.get("/:id", obtenerVehiculosPorId);
-router.get("/", listarVehiculosVista);
-router.post("/", crearVehiculoVista);
-router.get("/:id/editar", editarVehiculoVista);
-router.post("/:id/actualizar", actualizarVehiculoVista);
-router.post("/:id/eliminar", eliminarVehiculoVista);
+router.get("/:id", autorizar("vehiculos", "ver"), obtenerVehiculosPorId);
+router.get("/", autorizar("vehiculos", "ver"), listarVehiculosVista);
+router.post("/", autorizar("vehiculos", "crear"), crearVehiculoVista);
+router.get("/:id/editar", autorizar("vehiculos", "editar"), editarVehiculoVista);
+router.post("/:id/actualizar", autorizar("vehiculos", "editar"), actualizarVehiculoVista);
+router.post("/:id/eliminar", autorizar("vehiculos", "eliminar"), eliminarVehiculoVista);
 
 export default router;

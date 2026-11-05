@@ -1,5 +1,6 @@
 // ivan: rutas api de incidencias
 import express from "express";
+import { autorizar } from "../middlewares/autorizarRol.js";
 import {
   obtenerIncidencias,
   obtenerIncidenciaPorId,
@@ -11,10 +12,10 @@ import validarIncidencia from "../middlewares/validarIncidencia.js";
 
 const router = express.Router();
 
-router.get("/", obtenerIncidencias);
-router.get("/:id", obtenerIncidenciaPorId);
-router.post("/", validarIncidencia, crearIncidencia);
-router.put("/:id", validarIncidencia, actualizarIncidencia);
-router.delete("/:id", eliminarIncidencia);
+router.get("/", autorizar("incidencias", "ver"), obtenerIncidencias);
+router.get("/:id", autorizar("incidencias", "ver"), obtenerIncidenciaPorId);
+router.post("/", autorizar("incidencias", "crear"), validarIncidencia, crearIncidencia);
+router.put("/:id", autorizar("incidencias", "editar"), validarIncidencia, actualizarIncidencia);
+router.delete("/:id", autorizar("incidencias", "eliminar"), eliminarIncidencia);
 
 export default router;

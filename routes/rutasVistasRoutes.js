@@ -1,5 +1,6 @@
 // judith: rutas vistas de rutas
 import express from "express";
+import { autorizar } from "../middlewares/autorizarRol.js";
 import {
   listarRutasVista,
   crearRutaVista,
@@ -10,10 +11,10 @@ import {
 
 const router = express.Router();
 
-router.get("/", listarRutasVista);
-router.post("/", crearRutaVista);
-router.get("/:id/editar", editarRutaVista);
-router.post("/:id/actualizar", actualizarRutaVista);
-router.post("/:id/eliminar", eliminarRutaVista);
+router.get("/", autorizar("rutas", "ver"), listarRutasVista);
+router.post("/", autorizar("rutas", "crear"), crearRutaVista);
+router.get("/:id/editar", autorizar("rutas", "editar"), editarRutaVista);
+router.post("/:id/actualizar", autorizar("rutas", "editar"), actualizarRutaVista);
+router.post("/:id/eliminar", autorizar("rutas", "eliminar"), eliminarRutaVista);
 
 export default router;

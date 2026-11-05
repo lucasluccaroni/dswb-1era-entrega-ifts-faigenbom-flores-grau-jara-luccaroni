@@ -16,8 +16,16 @@ html(lang="es")
         a(href="/rutas") Rutas
         a(href="/entregas") Entregas
         a(href="/incidencias") Incidencias
-        a(href="/login") Ingresar
-        a(href="/registro") Registro
+        if usuario && usuario.rol === "admin"
+          a(href="/usuarios") Usuarios
+        if usuario
+          span.sesion #{usuario.nombre} (#{usuario.rol})
+          form.form-salir(action="/logout", method="POST")
+            button(type="submit") Salir
+        else
+          a(href="/login") Ingresar
+          if registroPublico
+            a(href="/registro") Registro
     main
       block contenido
     footer

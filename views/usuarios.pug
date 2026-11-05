@@ -1,0 +1,50 @@
+//- lucas: vista gestion de usuarios
+extends layout
+
+block contenido
+  h2 Usuarios
+
+  h3 Nuevo usuario
+  form(action="/usuarios", method="POST")
+    label(for="nombre") Nombre
+    input#nombre(type="text", name="nombre", required)
+    label(for="email") Email
+    input#email(type="email", name="email", required)
+    label(for="password") Contraseña
+    input#password(type="password", name="password", required)
+    label(for="rol") Rol
+    select#rol(name="rol", required)
+      each r in roles
+        option(value=r, selected=(r === "operador"))= r
+    button(type="submit") Crear usuario
+
+  h3 Listado
+  table
+    thead
+      tr
+        th Nombre
+        th Email
+        th Rol
+        th Acciones
+    tbody
+      each u in usuarios
+        - const esYo = usuario && String(u._id) === String(usuario._id)
+        tr
+          td= u.nombre
+          td= u.email
+          td= u.rol
+          td
+            if esYo
+              span (tu usuario)
+            else
+              form.inline(action=`/usuarios/${u._id}/rol`, method="POST")
+                select(name="rol")
+                  each r in roles
+                    option(value=r, selected=(r === u.rol))= r
+                button(type="submit") Cambiar rol
+            form.inline(action=`/usuarios/${u._id}/password`, method="POST")
+              input(type="password", name="password", placeholder="Nueva contraseña", required)
+              button(type="submit") Cambiar contraseña
+            if !esYo
+              form.inline(action=`/usuarios/${u._id}/eliminar`, method="POST")
+                button(type="submit") Eliminar
