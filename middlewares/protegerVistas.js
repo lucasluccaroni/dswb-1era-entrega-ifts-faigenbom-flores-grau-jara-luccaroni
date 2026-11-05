@@ -1,22 +1,30 @@
-// ==========================================================================
-// COSTURA 2: SESIONES Y COOKIES (vistas Pug)  |  Dueño: ficha 2 (sesiones)
-// Hoy es un PLACEHOLDER que deja pasar a todos (el perímetro está abierto).
-// Reemplazá el contenido manteniendo el nombre exportado `protegerVistas`.
-// CONTRATO: si la sesión es válida, dejá `req.usuario = { _id, nombre, email, rol }`
-// y llamá a next(). Si no, redirigí a /login.
-// ==========================================================================
+import Usuario from "../models/Usuario.js";
+import { leerCookies } from "../utils/cookies.js";
 
-// lucas: placeholder, deja pasar a todos
-export const protegerVistas = (req, res, next) => {
-  // BLOQUE SOLO DE DESARROLLO: simula un usuario para probar roles.
-  // BORRALO por completo cuando implementes la costura real.
-  if (process.env.DEV_FAKE_ROL) {
+// lucas: exige sesion valida en vistas
+export const protegerVistas = async (req, res, next) => {
+  try {
+    const token = leerCookies(req).sesion;
+    if (!token) {
+      return res.redirect("/login");
+    }
+
+    const usuario = await Usuario.findOne({
+      sesionToken: token,
+      sesionExpira: { $gt: new Date() },
+    });
+    if (!usuario) {
+      return res.redirect("/login");
+    }
+
     req.usuario = {
-      _id: "000000000000000000000001",
-      nombre: "Usuario de desarrollo",
-      email: "dev@local",
-      rol: process.env.DEV_FAKE_ROL,
+      _id: usuario._id,
+      nombre: usuario.nombre,
+      email: usuario.email,
+      rol: usuario.rol,
     };
+    next();
+  } catch (error) {
+    next(error);
   }
-  next();
 };
