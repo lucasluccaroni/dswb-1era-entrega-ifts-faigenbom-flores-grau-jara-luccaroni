@@ -1,18 +1,37 @@
-// ==========================================================================
-// COSTURA 1: HASH DE CONTRASEÑAS  |  Dueño: ficha 1 (hash)
-// Hoy es un PLACEHOLDER INSEGURO: guarda la contraseña en texto plano.
-// Reemplazá TODO el contenido manteniendo estos dos nombres y sus firmas:
-//   hashearPassword(password)            -> Promise<{ salt, passwordHash }>
-//   verificarPassword(password, usuario) -> Promise<boolean>
-// Los controladores de usuarios ya llaman a estas dos funciones.
-// ==========================================================================
+import crypto from "crypto";
 
-// lucas: placeholder, guarda texto plano
-export const hashearPassword = async (password) => {
-  return { salt: "", passwordHash: password };
-};
+const ITERACIONES = 210000;
+const LARGO_CLAVE = 64;
+const DIGEST = "sha512";
 
-// lucas: placeholder, compara texto plano
+//mauro: deriva clave con PBKDF2
+const derivarClave = (password, salt) => 
+  new Promise((resolve, reject) => {
+    crypto.pbkdf2(password, salt, ITERACIONES, LARGO_CLAVE, DIGEST, (err, derivedKey) => {
+      if (error) {
+        return reject(error);
+    }
+    resolve(clave);
+    });
+  });
+
+  //mauro: crea salt y hash
+  export const hashearPassword = async (password) => {
+    const salt = crypto.randomBytes(16).toString("hex");
+    const clave = await derivarClave(password, salt);
+    return { salt, passwordHash: clave.toString("hex") };
+  };
+
+//mauro: compara password con hash guardado
 export const verificarPassword = async (password, usuario) => {
-  return usuario.passwordHash === password;
+  if (!usuario?.salt || !usuario?.passwordHash) {
+    return false;
+  }
+  
+  const claveCalculada = await derivarClave(password, usuario.salt);
+  const claveGuardada = Buffer.from(usuario.passwordHash, "hex");
+  if (claveCalculada.length !== claveGuardada.length) {
+    return false;
+  }
+  return crypto.timingSafeEqual(claveCalculada, claveGuardada);
 };
