@@ -1,5 +1,7 @@
 // mauro: controlador api de vehiculos
 import Vehiculo from "../models/Vehiculo.js";
+import { crearError } from "../utils/errores.js";
+import { vehiculoTieneRutas } from "../utils/relaciones.js";
 
 // mauro: lista todos los vehiculos
 export const obtenerVehiculos = async (req, res, next) => {
@@ -66,6 +68,11 @@ export const actualizarVehiculo = async (req, res, next) => {
 // mauro: elimina un vehiculo por id
 export const eliminarVehiculo = async (req, res, next) => {
   try {
+    // judith: bloquea borrado si esta en uso
+    if (await vehiculoTieneRutas(req.params.id)) {
+      return next(crearError(409, "No se puede eliminar: el vehiculo tiene rutas asignadas"));
+    }
+
     const vehiculoEliminado = await Vehiculo.findByIdAndDelete(req.params.id);
     if (!vehiculoEliminado) {
       return res.status(404).json({ error: "Vehículo no encontrado" });

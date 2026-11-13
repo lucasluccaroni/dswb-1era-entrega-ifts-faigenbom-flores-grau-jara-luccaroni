@@ -1,5 +1,7 @@
 // lucas: controlador api de choferes
 import Chofer from "../models/Chofer.js";
+import { crearError } from "../utils/errores.js";
+import { choferTieneRutas } from "../utils/relaciones.js";
 
 // lucas: lista todos los choferes
 export const obtenerChoferes = async (req, res, next) => {
@@ -57,6 +59,11 @@ export const actualizarChofer = async (req, res, next) => {
 // lucas: elimina un chofer por id
 export const eliminarChofer = async (req, res, next) => {
   try {
+    // judith: bloquea borrado si esta en uso
+    if (await choferTieneRutas(req.params.id)) {
+      return next(crearError(409, "No se puede eliminar: el chofer tiene rutas asignadas"));
+    }
+
     const choferEliminado = await Chofer.findByIdAndDelete(req.params.id);
     if (!choferEliminado) {
       return res.status(404).json({ error: "Chofer no encontrado" });

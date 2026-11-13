@@ -1,5 +1,7 @@
 // lucas: controlador vistas de choferes
 import Chofer from "../models/Chofer.js";
+import { crearError } from "../utils/errores.js";
+import { choferTieneRutas } from "../utils/relaciones.js";
 
 // lucas: crea error 404 para vista
 const crearError404 = () => {
@@ -63,6 +65,11 @@ export const actualizarChoferVista = async (req, res, next) => {
 // lucas: elimina chofer desde vista web
 export const eliminarChoferVista = async (req, res, next) => {
   try {
+    // judith: bloquea borrado si esta en uso
+    if (await choferTieneRutas(req.params.id)) {
+      return next(crearError(409, "No se puede eliminar: el chofer tiene rutas asignadas"));
+    }
+
     const choferEliminado = await Chofer.findByIdAndDelete(req.params.id);
     if (!choferEliminado) {
       return next(crearError404());
