@@ -2,6 +2,8 @@
 import Chofer from "../models/Chofer.js";
 import Vehiculo from "../models/Vehiculo.js";
 import Ruta from "../models/Ruta.js";
+import { existeChofer, existeVehiculo } from "../utils/relaciones.js";
+import { crearError } from "../utils/errores.js";
 
 // judith: crea error 404 de ruta
 const crearError404 = () => {
@@ -13,7 +15,9 @@ const crearError404 = () => {
 // judith: lista rutas en vista
 export const listarRutasVista = async (req, res, next) => {
   try {
-    const rutas = await Ruta.find();
+    const rutas = await Ruta.find()
+      .populate("choferId", "nombre apellido")
+      .populate("vehiculoId", "patente tipo");
     const choferes = await Chofer.find();
     const vehiculos = await Vehiculo.find();
 
@@ -39,6 +43,13 @@ export const crearRutaVista = async (req, res, next) => {
       horaFinEstimada,
       estado,
     } = req.body;
+
+    if (!(await existeChofer(choferId))) {
+      return next(crearError(400, "El chofer indicado no existe"));
+    }
+    if (!(await existeVehiculo(vehiculoId))) {
+      return next(crearError(400, "El vehiculo indicado no existe"));
+    }
 
     await new Ruta({
       choferId,
@@ -89,6 +100,13 @@ export const actualizarRutaVista = async (req, res, next) => {
       horaFinEstimada,
       estado,
     } = req.body;
+
+    if (!(await existeChofer(choferId))) {
+      return next(crearError(400, "El chofer indicado no existe"));
+    }
+    if (!(await existeVehiculo(vehiculoId))) {
+      return next(crearError(400, "El vehiculo indicado no existe"));
+    }
 
     const rutaActualizada = await Ruta.findByIdAndUpdate(
       req.params.id,

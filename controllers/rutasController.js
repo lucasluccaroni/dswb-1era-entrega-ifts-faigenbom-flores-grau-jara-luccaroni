@@ -4,7 +4,9 @@ import Ruta from "../models/Ruta.js";
 // judith: lista todas las rutas
 export const obtenerRutas = async (req, res, next) => {
   try {
-    const rutas = await Ruta.find();
+    const rutas = await Ruta.find()
+      .populate("choferId", "nombre apellido")
+      .populate("vehiculoId", "patente tipo");
     res.status(200).json(rutas);
   } catch (error) {
     next(error);
@@ -14,7 +16,9 @@ export const obtenerRutas = async (req, res, next) => {
 // judith: busca ruta por id
 export const obtenerRutaPorId = async (req, res, next) => {
   try {
-    const ruta = await Ruta.findById(req.params.id);
+    const ruta = await Ruta.findById(req.params.id)
+      .populate("choferId", "nombre apellido")
+      .populate("vehiculoId", "patente tipo");
 
     if (!ruta) {
       return res.status(404).json({ error: "Ruta no encontrada" });
