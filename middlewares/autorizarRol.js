@@ -1,15 +1,16 @@
-// ==========================================================================
-// COSTURA 4: AUTORIZACIÓN POR ROLES (RBAC)  |  Dueño: ficha 4 (roles)
-// Hoy es un PLACEHOLDER que autoriza a todos.
-// Reemplazá el contenido manteniendo el nombre exportado `autorizar`.
-// Los 10 routers ya lo usan así:  autorizar("choferes", "crear")
-// Recursos: choferes, vehiculos, rutas, entregas, incidencias, usuarios.
-// Acciones: ver, crear, editar, eliminar.
-// CONTRATO: sin req.usuario -> next(crearError(401, ...)).
-//           rol sin permiso -> next(crearError(403, ...)).
-// ==========================================================================
+import { PERMISOS } from "../config/permisos.js";
+import { crearError } from "../utils/errores.js";
 
-// lucas: placeholder, autoriza a todos
+// ivan: exige permiso del rol
 export const autorizar = (recurso, accion) => (req, res, next) => {
+  if (!req.usuario) {
+    return next(crearError(401, "No autenticado"));
+  }
+
+  const permitidas = PERMISOS[req.usuario.rol]?.[recurso] ?? [];
+  if (!permitidas.includes(accion)) {
+    return next(crearError(403, "No tenes permiso para esta accion"));
+  }
+
   next();
 };
