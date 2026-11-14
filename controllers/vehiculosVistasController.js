@@ -1,4 +1,6 @@
 import Vehiculo from "../models/Vehiculo.js";
+import { crearError } from "../utils/errores.js";
+import { vehiculoTieneRutas } from "../utils/relaciones.js";
 
 // mauro: crea error 404 para vista
 const crearError404 = () => {
@@ -75,6 +77,11 @@ export const actualizarVehiculoVista = async (req, res, next) => {
 // mauro: elimina un vehiculo desde vista
 export const eliminarVehiculoVista = async (req, res, next) => {
   try {
+    // judith: bloquea borrado si esta en uso
+    if (await vehiculoTieneRutas(req.params.id)) {
+      return next(crearError(409, "No se puede eliminar: el vehiculo tiene rutas asignadas"));
+    }
+
     const vehiculoEliminado = await Vehiculo.findByIdAndDelete(req.params.id);
     if (!vehiculoEliminado) {
       return next(crearError404());

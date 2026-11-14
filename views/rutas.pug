@@ -40,8 +40,8 @@ block contenido
     table
       thead
         tr
-          th Chofer ID
-          th Vehículo ID
+          th Chofer
+          th Vehículo
           th Fecha
           th Hora de inicio
           th Hora de fin estimada
@@ -50,8 +50,8 @@ block contenido
       tbody
         each ruta in rutas
           tr
-            td= ruta.choferId
-            td= ruta.vehiculoId
+            td= ruta.choferId ? `${ruta.choferId.apellido}, ${ruta.choferId.nombre}` : '(chofer eliminado)'
+            td= ruta.vehiculoId ? `${ruta.vehiculoId.patente} (${ruta.vehiculoId.tipo})` : '(vehículo eliminado)'
             td= ruta.fecha.toISOString().slice(0, 10)
             td= ruta.horaInicio
             td= ruta.horaFinEstimada
