@@ -1,18 +1,18 @@
-// ==========================================================================
-// COSTURA 3: JWT PARA LA API  |  Dueño: ficha 3 (jwt)
-// Hoy es un PLACEHOLDER: devuelve un texto fijo, no es un token real.
-// Reemplazá el contenido manteniendo estos nombres y firmas:
-//   generarToken(usuario)  -> string  (JWT firmado con process.env.JWT_SECRET)
-//   verificarToken(token)  -> objeto con el payload, o lanza error si no sirve
-// El login de la API (usuariosController) ya llama a generarToken.
-// ==========================================================================
+import jwt from "jsonwebtoken";
 
-// lucas: placeholder, devuelve token falso
+// matias: firma jwt del usuario
 export const generarToken = (usuario) => {
-  return "TOKEN_PENDIENTE";
+  if (!process.env.JWT_SECRET) {
+    throw new Error("Falta JWT_SECRET en el archivo .env");
+  }
+  return jwt.sign(
+    { sub: String(usuario._id), rol: usuario.rol },
+    process.env.JWT_SECRET,
+    { expiresIn: process.env.JWT_EXPIRES_IN || "1h" }
+  );
 };
 
-// lucas: placeholder, no verifica nada
+// matias: valida jwt y devuelve payload
 export const verificarToken = (token) => {
-  throw new Error("verificarToken todavia no esta implementado");
+  return jwt.verify(token, process.env.JWT_SECRET);
 };
