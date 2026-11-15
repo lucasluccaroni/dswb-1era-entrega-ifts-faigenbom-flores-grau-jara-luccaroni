@@ -1,5 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 import { conectarDB } from "./config/db.js";
 import { notFound, errorHandler } from "./middlewares/errorHandler.js";
 import { protegerVistas } from "./middlewares/protegerVistas.js";
@@ -26,6 +28,8 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // las vistas muestran los links de registro solo si esta habilitado
 app.locals.registroPublico = process.env.REGISTRO_PUBLICO === "true";
@@ -33,11 +37,11 @@ app.locals.registroPublico = process.env.REGISTRO_PUBLICO === "true";
 // middlewares globales de lectura de cuerpo
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 
 // motor de vistas pug
 app.set("view engine", "pug");
-app.set("views", "./views");
+app.set("views", path.join(__dirname, "views"));
 
 // ---------------------------------------------------------------
 // RUTAS PUBLICAS (no requieren sesion ni token)
@@ -89,6 +93,11 @@ app.use(errorHandler);
 await conectarDB();
 await asegurarAdminInicial();
 
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
-});
+// lucas: evita abrir puerto en vercel
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  });
+}
+
+export default app;
