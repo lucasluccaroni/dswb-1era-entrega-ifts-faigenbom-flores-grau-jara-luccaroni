@@ -520,6 +520,7 @@ Las credenciales del administrador para la evaluación se entregan junto con la 
 | Rama | Integrante | Ficha |
 | :--- | :--- | :--- |
 | `3ra-mauro` | Mauro | Hash de contraseñas |
+| `3ra-lucas` | Lucas | Sesiones con cookie en las vistas |
 | `3ra-matias` | Matías | JWT en la API |
 | `3ra-ivan` | Ivan | Autorización por roles |
 | `3ra-judith` | Judith | Relaciones e integridad |
@@ -550,7 +551,7 @@ Lo siguiente **no** está implementado y se declara como deuda:
 | Integrante | Responsabilidad en la 3ª entrega |
 | :--- | :--- |
 | **Mauro Flores** | Ficha 1: hash de contraseñas con PBKDF2 y salt (`utils/password.js`). README |
- **Lucas Luccaroni** | Base de integración, sesiones en las vistas, gestión de usuarios, despliegue y consolidación de la documentación |
+| **Lucas Luccaroni** | Base de integración, sesiones en las vistas, gestión de usuarios, despliegue y consolidación de la documentación |
 | **Matías Jara** | Ficha 3: JWT en la API (`utils/token.js`, `middlewares/protegerApi.js`) |
 | **Ivan Faigenbom** | Ficha 4: autorización por roles (`config/permisos.js`, `middlewares/autorizarRol.js`) |
 | **Judith Grau** | Ficha 5: relaciones e integridad de datos (`utils/relaciones.js`, rutas, `populate` y borrado protegido) |
